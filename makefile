@@ -1,5 +1,5 @@
 SrcDir = src
-LibDir = $(SrcDir)/libaeds
+LibDir = $(SrcDir)/lib*
 
 
 Lib-CompilationUnits = $(shell find $(LibDir) -name '*.c')
