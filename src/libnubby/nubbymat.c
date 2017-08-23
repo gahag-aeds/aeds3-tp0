@@ -6,7 +6,7 @@
 struct NubbyMat {
   const Allocator* allocator;
   
-  const long* source;
+  long* source;
   size_t size;
   
   RangeStats (*data)[]; // Array of pointers to RangeStats.
@@ -41,7 +41,18 @@ void delete_nubbymat(NubbyMat** _mat) {
 }
 
 
-RangeStats* nubbymat_query(NubbyMat* mat, IxRange range) {
+long* nubbymat_source(const NubbyMat* mat) {
+  assert(mat != NULL);
+  return mat->source;
+}
+
+size_t nubbymat_size(const NubbyMat* mat) {
+  assert(mat != NULL);
+  return mat->size;
+}
+
+
+RangeStats* nubbymat_query(const NubbyMat* mat, IxRange range) {
   assert(mat != NULL);
   
   RangeStats (*data)[mat->size][mat->size] = (void*) &(mat->data);

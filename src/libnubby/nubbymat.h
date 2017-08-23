@@ -5,7 +5,7 @@
 
 #include <libaeds/memory/allocator.h>
 
-#include <libnubby/nubbyops.h>
+#include <libnubby/rangestats.h>
 
 
 typedef struct NubbyMat NubbyMat;
@@ -14,7 +14,10 @@ typedef struct NubbyMat NubbyMat;
 NubbyMat* new_nubbymat(const Allocator* allocator, long* array, size_t size);
 void delete_nubbymat(NubbyMat**);
 
-RangeStats* nubbymat_query(NubbyMat*, IxRange range);
+long* nubbymat_source(const NubbyMat*);
+size_t nubbymat_size(const NubbyMat*);
+
+RangeStats* nubbymat_query(const NubbyMat*, IxRange range);
 
 void nubbymat_update(NubbyMat*);
 

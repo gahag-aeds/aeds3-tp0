@@ -1,52 +1,59 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
+#include <libaeds/data/array.h>
 #include <libaeds/data/ix/range.h>
+#include <libaeds/data/resources/memory.h>
+#include <libaeds/data/resources/resource.h>
 #include <libaeds/memory/allocator.h>
 
 #include <libnubby/nubbymat.h>
+#include <libnubby/nubbyops.h>
 
 
 int main() {
   Allocator allocator = std_allocator(abort);
+  Resources res = new_resources(&allocator);
   
   unsigned long array_size, queries_count;
   
   long* array;
+  NubbyMat* nubbymat;
   
   
   if (scanf("%lu %lu", &array_size, &queries_count) != 2)
-    return -1;
+    return delete_resources(&res), -1;
   
-  array = al_alloc(&allocator, array_size, sizeof(long));
+  array = rs_register_alloc(
+    allocator, array_size, sizeof(*array),
+    rs_disposer_al(&allocator),
+    &res
+  );
   
   for (unsigned long i = 0; i < array_size; i++)
     if (scanf("%ld", &array[i]) != 1)
-      return al_dealloc(&allocator, array), -1;
+      return delete_resources(&res), -1;
   
-  //
-  NubbyMat* nm = new_nubbymat(&allocator, array, array_size);
   
-  for (size_t i = 0; i < array_size; i++) {
-    for (size_t j = 0; j < array_size; j++) {
-      RangeStats* stats = nubbymat_query(nm, (IxRange) { i, j });
-      printf("(%ld, %ld, %ld) ", stats->min, stats->max, stats->sum);
-    }
-    puts("");
-  }
-  //
+  nubbymat = new_nubbymat(&allocator, array, array_size);
+  rs_register(
+    &nubbymat,
+    rs_disposer((void (*)(void*)) delete_nubbymat),
+    &res
+  );
+  
   
   for (unsigned long i = 0; i < queries_count; i++) {
-    char str[4];
+    char op[4];
     IxRange range;
     
-    if (fgets(str, 4, stdin) == NULL)
-      return al_dealloc(&allocator, array), -1;
+    if (scanf("%3s %lu %lu", op, &range.begin, &range.end) != 3)
+      return delete_resources(&res), -1;
     
-    if (scanf("%lu %lu", &range.begin, &range.end) != 2)
-      return al_dealloc(&allocator, array), -1;
+    nubby_op(nubbymat, op, range);
   }
   
   
-  return al_dealloc(&allocator, array), 0;
+  return delete_resources(&res), 0;
 }
