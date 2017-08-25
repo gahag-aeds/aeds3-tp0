@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <libaeds/data/array.h>
 #include <libaeds/data/ix/range.h>
 #include <libaeds/data/resources/memory.h>
 #include <libaeds/data/resources/resource.h>
