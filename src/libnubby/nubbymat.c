@@ -41,14 +41,14 @@ void delete_nubbymat(NubbyMat** _mat) {
 }
 
 
-long* nubbymat_source(const NubbyMat* mat) {
+Array nubbymat_source(const NubbyMat* mat) {
   assert(mat != NULL);
-  return mat->source;
-}
-
-size_t nubbymat_size(const NubbyMat* mat) {
-  assert(mat != NULL);
-  return mat->size;
+  
+  return (Array) {
+    .data = mat->source,
+    .size = mat->size,
+    .elem_size = sizeof(long)
+  };
 }
 
 
