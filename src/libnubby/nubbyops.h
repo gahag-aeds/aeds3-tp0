@@ -15,13 +15,13 @@
 // Sum i j: query the sum of all elements in the interval [i, j].
 
 
-// NubbyMat
+// NubbyMat ------------------------------------------------------------------------------
 
 // Perform a nubby operation on a NubbyMat.
 void nubby_op(NubbyMat*, char op[4], IxRange);
 
 
-// SegTree
+// SegTree -------------------------------------------------------------------------------
 
 // Init a rangestats leaf in a segtree from the correspondent element in the source array.
 void rangestats_leaf_init(void* data, void* leaf);
