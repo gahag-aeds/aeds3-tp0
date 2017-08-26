@@ -9,7 +9,7 @@ struct NubbyMat {
   long* source;
   size_t size;
   
-  RangeStats (*data)[]; // Array of pointers to RangeStats.
+  RangeStats data[]; // 2d flexible member array representing the matrix.
 };
 
 
@@ -18,7 +18,11 @@ NubbyMat* new_nubbymat(const Allocator* allocator, long* array, size_t size) {
   assert(array != NULL);
   assert(size > 0);
   
-  NubbyMat* mat = al_alloc(allocator, 1, sizeof(NubbyMat) + sizeof(RangeStats[size][size]));
+  NubbyMat* mat = al_alloc(
+    allocator,
+    1,
+    sizeof(NubbyMat) + sizeof(RangeStats[size][size])
+  );
   
   mat->allocator = allocator;
   mat->source = array;
@@ -69,6 +73,6 @@ void nubbymat_update(NubbyMat* mat) {
       IxRange range = { i, j } ;
       // Nubby matrix is symmetric:
       *nubbymat_query(mat, (IxRange) { j, i }) =
-      *nubbymat_query(mat, range) = range_stats(mat->source, range);
+      *nubbymat_query(mat, range) = rangestats(mat->source, range);
     }
 }

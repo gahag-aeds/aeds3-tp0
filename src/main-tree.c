@@ -1,7 +1,5 @@
-#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 #include <libaeds/data/array.h>
 #include <libaeds/data/container/segtree.h>
@@ -14,38 +12,6 @@
 #include <libnubby/rangestats.h>
 
 
-void data_init(void* _ar_elem, void* _rs) {
-  long* ar_elem = _ar_elem;
-  RangeStats* rs = _rs;
-  
-  *rs = (RangeStats) {
-    .min = *ar_elem,
-    .max = *ar_elem,
-    .sum = *ar_elem
-  };
-}
-
-void m_clear(void* _rs) {
-  RangeStats* rs = _rs;
-  *rs = (RangeStats) {
-    .min = LONG_MAX,
-    .max = 0,
-    .sum = 0
-  };
-}
-
-void m_append(void* _out, const void* _in) {
-  RangeStats* out = _out;
-  const RangeStats* in = _in;
-  
-  *out = (RangeStats) {
-    .min = out->min < in->min ? out-> min : in->min,
-    .max = out->max > in->max ? out-> max : in->max,
-    .sum = out->sum + in->sum
-  };
-}
-
-
 int main() {
   Allocator allocator = std_allocator(abort);
   Resources res = new_resources(&allocator);
@@ -53,7 +19,7 @@ int main() {
   unsigned long array_size, queries_count;
   
   long* array;
-  //SegTree segtree;
+  SegTree segtree;
   
   
   if (scanf("%lu %lu", &array_size, &queries_count) != 2)
@@ -70,7 +36,7 @@ int main() {
       return delete_resources(&res), -1;
   
   
-  SegTree segtree = new_segtree(
+  segtree = new_segtree(
     &allocator,
     (Array) {
       .data = array,
@@ -78,11 +44,8 @@ int main() {
       .elem_size = sizeof(*array)
     },
     sizeof(RangeStats),
-    data_init,
-    (Monoid) {
-      .clear = m_clear,
-      .append = m_append
-    }
+    rangestats_leaf_init,
+    rangestats_monoid
   );
   rs_register(
     &segtree,

@@ -1,10 +1,20 @@
 #include "rangestats.h"
 
 #include <assert.h>
+#include <limits.h>
 #include <stddef.h>
 
 
-RangeStats range_stats(const long* array, IxRange range) {
+static void* rangestats_clear(void*);
+static void* rangestats_append(void*, const void*);
+
+const Monoid rangestats_monoid = {
+  .clear = rangestats_clear,
+  .append = rangestats_append
+};
+
+
+RangeStats rangestats(const long* array, IxRange range) {
   assert(array != NULL);
   
   RangeStats stats = {
@@ -24,4 +34,31 @@ RangeStats range_stats(const long* array, IxRange range) {
   }
   
   return stats;
+}
+
+
+// Monoid instance:
+static void* rangestats_clear(void* _rs) {
+  RangeStats* rs = _rs;
+  
+  *rs = (RangeStats) {
+    .min = LONG_MAX,
+    .max = 0,
+    .sum = 0
+  };
+  
+  return rs;
+}
+
+static void* rangestats_append(void* _out, const void* _in) {
+  RangeStats* out = _out;
+  const RangeStats* in = _in;
+  
+  *out = (RangeStats) {
+    .min = out->min < in->min ? out-> min : in->min,
+    .max = out->max > in->max ? out-> max : in->max,
+    .sum = out->sum + in->sum
+  };
+  
+  return out;
 }

@@ -1,7 +1,6 @@
 #include "nubbyops.h"
 
 #include <assert.h>
-#include <limits.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <string.h>
@@ -10,7 +9,7 @@
 #include <libaeds/data/array.h>
 
 
-void add_one(void* _rs) {
+static void rangestats_add1(void* _rs) {
   RangeStats* rs = _rs;
   
   rs->min++;
@@ -18,12 +17,24 @@ void add_one(void* _rs) {
   rs->sum++;
 }
 
-void sub_one(void* _rs) {
+static void rangestats_sub1(void* _rs) {
   RangeStats* rs = _rs;
   
   rs->min--;
   rs->max--;
   rs->sum--;
+}
+
+
+void rangestats_leaf_init(void* _data, void* _rs) {
+  long* data = _data;
+  RangeStats* rs = _rs;
+  
+  *rs = (RangeStats) {
+    .min = *data,
+    .max = *data,
+    .sum = *data
+  };
 }
 
 
@@ -71,9 +82,9 @@ void nubby_tree_op(SegTree tree, char op[4], IxRange range) {
   }
   
   if (strcmp(op, "Add") == 0)
-    segtree_update(tree, range, &add_one);
+    segtree_update(tree, range, &rangestats_add1);
   else if (strcmp(op, "Sub") == 0)
-    segtree_update(tree, range, &sub_one);
+    segtree_update(tree, range, &rangestats_sub1);
   else {
     RangeStats out;
     
