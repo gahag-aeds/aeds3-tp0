@@ -30,6 +30,9 @@ ReleaseFlags = -DNDEBUG
 
 
 
+all: release-mat release-tree
+
+
 build-mat: $(SrcDir)
 	@$(Build) $(call BuildFlags,$(Mat-OutputFile)) $(DebugFlags) $(Mat-CompilationUnits)
 
