@@ -26,7 +26,7 @@ BuildFlags  = $(Warnings)       \
 
 DebugFlags = -g
 
-ReleaseFlags = -DNDEBUG -s
+ReleaseFlags = -DNDEBUG
 
 
 
