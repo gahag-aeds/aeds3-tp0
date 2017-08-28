@@ -2,14 +2,24 @@
 
 \usepackage[margin=1in]{geometry}
 
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{caption}
 \usepackage{graphicx}
 \usepackage{lmodern}
+\usepackage{qtree}
+\usepackage{newfloat}
+\usepackage{calc}
+\usepackage{indentfirst}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage[normalem]{ulem}
 
 
 \setlength{\parskip}{5pt}%
-\setlength\parindent{0pt}
+
+\DeclareFloatingEnvironment[fileext=lod]{diagram}
+\captionsetup[diagram]{labelformat=empty}
 
 
 \begin{document}
@@ -43,16 +53,89 @@
 
 
 \section{Introdução}
+O objetivo do trabalho é prover uma comparação que evidencie os ganhos de eficiência ao se estruturar dados de forma inteligente. Para tal, foi proposto um problema e duas formas de se resolver o mesmo. O problema consiste em obter informações sobre máximos, mínimos e somas em intervalos de um vetor mutável. A primeira solução consiste em estruturar os dados de forma trivial, Já a segunda solução implementa uma estruturação mais elaborada. Desta forma, será feita a comparação da eficiência de ambas soluções.
 
 
-\section{Visão Geral da Solução}
+\section{Visão Geral das Soluções}
+Tendo como entrada um vetor de $n$ números, ambas soluções são formas de se pré-computar triplas contendo o mínimo, máximo e a soma dos elementos em dado intervalo $[i, j]$ contido no vetor.
+\[ T_{i,j} = {(\text{Min}, \text{Max}, \text{Soma})}_{i,j} \]
+
+\subsection{Matriz}
+Uma matriz foi escolhida como forma trivial de se estruturar os dados. Cada entrada na posição $i, j$ na matriz contém a tupla correspondente ao intervalo $[i,j]$.
+\[
+  \begin{bmatrix}
+      T_{1,1} & \hdots  & T_{1,n} \\
+      \vdots & \ddots  & \vdots \\
+      T_{n,1} & \hdots & T_{n,n}
+  \end{bmatrix}
+\]
+Para se obter a tripla de um certo intervalo, uma simples consulta na matriz é suficiente. \\
+Para cada alteração no vetor, a matriz deve ser reconstruida.
+
+\subsection{Árvore de Segmentos}
+Uma árvore de segmentos foi escolhida como forma elaborada de se estruturar os dados. Cada nó na arvóre representa um intervalo. As folhas representam todos intervalos de largura $1$, já os nós internos representam o intervalo resultante da união dos intervalos de seus descendentes. A raiz representa o intervalo correspondente a todo o vetor.
+\begin{diagram}[h]
+  \Tree[.$T_{1,5}$ [.$T_{1,2}$ [.$T_{1,1}$ ]
+                               [.$T_{2,2}$ ] ]
+                   [.$T_{3,5}$ [.$T_{3,3}$ ]
+                               [.$T_{4,5}$ [.$T_{4,4}$ ] 
+                                           [.$T_{5,5}$ ] ] ] ]
+\caption{Árvore de segmentos para um vetor de tamanho $5$.}
+\end{diagram}\\
+Para se obter a tripla de um certo intervalo $i$, é necessário percorrer a árvore a partir da raiz.
+Para um nó que reprenta um intervalo $j$, há as seguintes possibilidades:
+\vspace{-8pt}
+\begin{itemize}
+  \setlength\itemsep{0px}
+  \item $j \subseteq i$: A tripla contida no nó é associada ao resultado final. Os descendentes do nó são desconsiderados.
+  \item $j \cap i \neq \varnothing$: A tripla contida no nó é desconsiderada. Continua-se a iteração em seus descendentes.
+  \item $j \cap i = \varnothing$: O nó e seus descendentes são desconsiderados.
+\end{itemize}
+Para alterar dada folha na árvore, é necessário apenas alterar seu valor e recomputar o valor de todos seus antecessores até a raiz.
 
 
 \section{Análise de Complexidade}
 
-\subsection{Temporal}
+\subsection{Matriz}
+\subsubsection{Espacial}
+Para um vetor de tamanho $n$, a matriz com todos intervalos possui dimensão $n \times n$. \\
+Portanto a complexidade espacial da matriz é $\Theta(n^2)$.
 
-\subsection{Espacial}
+\subsubsection{Temporal}
+Três operações são relevantes para análise temporal:
+\vspace{-5pt}
+\begin{itemize}
+  \item \uline{Criação}: A criação da matriz demanda dois passos combinados.
+        \begin{itemize}
+          \item É necessário computar cada elemento da matriz de dimensão $n \times n$.\\
+                Portanto, este passo possui complexidade: $\Theta(n^2)$.
+          \item Para cada elemento, é necessário calcular a tripla correspondente. \\
+                Tal operação é linear no tamanho do vetor. Complexidade: $\Theta(n)$.
+        \end{itemize}
+        A combinação desses dois passos resulta em $\Theta(n^2) \cdot \Theta(n) = \Theta(n^3)$.
+  
+  \item \uline{Consulta}: Para consultar a tripla correspondente a um intervalo $[i, j]$, basta acessar diretamente o elemento na posição $i, j$ da matriz. Portanto, a complexidade é $\Theta(1)$.
+  
+  \item \uline{Atualização}: Como a atualização de um elemento no vetor implica na reconstrução de toda a matriz, a complexidade é a mesma da operação de criação: $\Theta(n^3)$.
+\end{itemize}
+
+
+\subsection{Árvore}
+
+\subsubsection{Espacial}
+Devido à preferencia de Nubby por memória sequencial, a árvore teve de ser implementada em um vetor. Para tal, é necessário que a árvore seja completa. O número de nós em uma árvore binária completa de $x$ folhas é $2x - 1$. Porém, o número de elementos $n$ da entrada não necessariamente é uma potência de $2$, o que torna necessário obter a potência de $2$ mais próxima que é maior que $n$. Então, o número de nós da árvore de segmentos será
+\[ 2 \cdot 2^{\lceil \log_2 n \rceil} - 1 \]
+A complexidade espacial da árvore é portanto $\Theta \left( 2^{\lceil \log_2 n \rceil + 1} - 1 \right)$.
+\begin{diagram}[h]
+  \Tree[.$T_{1,5}$ [.$T_{1,2}$ [.$T_{1,1}$ [.$\varnothing$ ] [.$\varnothing$ ] ]
+                               [.$T_{2,2}$ [.$\varnothing$ ] [.$\varnothing$ ] ] ]
+                   [.$T_{3,5}$ [.$T_{3,3}$ [.$\varnothing$ ] [.$\varnothing$ ] ]
+                               [.$T_{4,5}$ [.$T_{4,4}$ ] 
+                                           [.$T_{5,5}$ ] ] ] ]
+\caption{Árvore de segmentos completa para um vetor de tamanho $5$.}
+\end{diagram}
+
+\subsubsection{Temporal}
 
 
 \section{Análise Experimental}
