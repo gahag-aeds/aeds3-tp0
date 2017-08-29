@@ -14,6 +14,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[normalem]{ulem}
+\usepackage[hidelinks]{hyperref}
 
 
 \setlength{\parskip}{5pt}%
@@ -125,7 +126,7 @@ Três operações são relevantes para análise temporal:
 \subsubsection{Espacial}
 Devido à preferencia de Nubby por memória sequencial, a árvore teve de ser implementada em um vetor. Para tal, é necessário que a árvore seja completa. O número de nós em uma árvore binária completa de $x$ folhas é $2x - 1$. Porém, o número de elementos $n$ da entrada não necessariamente é uma potência de $2$, o que torna necessário obter a potência de $2$ mais próxima que é maior que $n$. Então, o número de nós da árvore de segmentos será 
 \[ 2 \cdot 2^{\lceil \log_2 n \rceil} - 1 \]
-Considerando as propriedades da função teto, tal expressão jamais será superior a expressão \\
+Considerando as propriedades da função teto, tal expressão jamais será superior a expressão\footnote{\label{link1}https://discuss.codechef.com/questions/85040/size-of-segment-tree} \\
 \[ 2 \cdot 2^{\log_2(n) + 1} - 1 \]
 que pode ser simplificada:
 \begin{gather*}
@@ -133,7 +134,7 @@ que pode ser simplificada:
   2 \cdot 2 \cdot n - 1 \\
   4n - 1
 \end{gather*}
-A complexidade espacial da árvore é portanto $\Theta(n)$.
+A complexidade espacial da árvore é portanto $\mathcal{O}(n)$.
 \begin{diagram}[h]
   \Tree[.$T_{1,5}$ [.$T_{1,2}$ [.$T_{1,1}$ [.$\varnothing$ ] [.$\varnothing$ ] ]
                                [.$T_{2,2}$ [.$\varnothing$ ] [.$\varnothing$ ] ] ]
@@ -144,7 +145,15 @@ A complexidade espacial da árvore é portanto $\Theta(n)$.
 \end{diagram}
 
 \subsubsection{Temporal}
+Três operações são relevantes para análise temporal:
+\vspace{-5pt}
+\begin{itemize}
+  \item \uline{Criação}: Na criação da árvore, cada nó é computado somente uma vez. Como há $2n - 1$ nós no total, a complexidade é $\Theta(n)$.
 
+  \item \uline{Consulta}: Para consultar a tripla correspondente a um intervalo $i$, basta percorrer a árvore a partir da raiz, associando as triplas dos nós cujo intervalo está totalmente contido no intervalo $i$. Em cada nível, no máximo dois nós serão expandidos.\footnote{\label{link2}https://cs.stackexchange.com/questions/37669/time-complexity-proof-for-segment-tree-implementation-of-the-ranged-sum-problem} Como a altura da árvore é $\log n$, no máximo $2 \cdot \log n$ nós serão expandidos no total. \\ Portanto, a complexidade é $\mathcal{O}(\log n)$.
+  
+  \item \uline{Atualização}: Para atualizar uma folha, esta e todos os seus antecessores são atualizados. Como há apenas um antecessor por nível, o número de atualizações é equivalente à altura da árvore. Portanto, a complexidade é $\Theta(\log n)$.
+\end{itemize}
 
 
 \section{Análise Experimental}
