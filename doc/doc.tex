@@ -123,9 +123,17 @@ Três operações são relevantes para análise temporal:
 \subsection{Árvore}
 
 \subsubsection{Espacial}
-Devido à preferencia de Nubby por memória sequencial, a árvore teve de ser implementada em um vetor. Para tal, é necessário que a árvore seja completa. O número de nós em uma árvore binária completa de $x$ folhas é $2x - 1$. Porém, o número de elementos $n$ da entrada não necessariamente é uma potência de $2$, o que torna necessário obter a potência de $2$ mais próxima que é maior que $n$. Então, o número de nós da árvore de segmentos será
+Devido à preferencia de Nubby por memória sequencial, a árvore teve de ser implementada em um vetor. Para tal, é necessário que a árvore seja completa. O número de nós em uma árvore binária completa de $x$ folhas é $2x - 1$. Porém, o número de elementos $n$ da entrada não necessariamente é uma potência de $2$, o que torna necessário obter a potência de $2$ mais próxima que é maior que $n$. Então, o número de nós da árvore de segmentos será 
 \[ 2 \cdot 2^{\lceil \log_2 n \rceil} - 1 \]
-A complexidade espacial da árvore é portanto $\Theta \left( 2^{\lceil \log_2 n \rceil + 1} - 1 \right)$.
+Considerando as propriedades da função teto, tal expressão jamais será superior a expressão \\
+\[ 2 \cdot 2^{\log_2(n) + 1} - 1 \]
+que pode ser simplificada:
+\begin{gather*}
+  2 \cdot 2 \cdot 2^{\log_2(n)} - 1 \\
+  2 \cdot 2 \cdot n - 1 \\
+  4n - 1
+\end{gather*}
+A complexidade espacial da árvore é portanto $\Theta(n)$.
 \begin{diagram}[h]
   \Tree[.$T_{1,5}$ [.$T_{1,2}$ [.$T_{1,1}$ [.$\varnothing$ ] [.$\varnothing$ ] ]
                                [.$T_{2,2}$ [.$\varnothing$ ] [.$\varnothing$ ] ] ]
@@ -138,10 +146,13 @@ A complexidade espacial da árvore é portanto $\Theta \left( 2^{\lceil \log_2 n
 \subsubsection{Temporal}
 
 
+
 \section{Análise Experimental}
 
 
 \section{Conclusão}
+O objetivo do trabalho foi atingido ao demonstrar as diferenças na eficiência das soluções propostas, tanto teoricamente quanto experimentalmente. Tornou-se evidente o grande ganho obtido na performance ao se utilizar uma estruturação de dados adequada.
+
 
 
 \end{document}
