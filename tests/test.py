@@ -13,7 +13,7 @@ tptester.tp_test(
   
   indexes = [ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10' ],
   input_file = lambda ix: tests_dir + '/data/in/' + ix + '.in',
-  answer_file = lambda ix: tests_dir + '/data/out/' + ix + '.in',
+  answer_file = lambda ix: tests_dir + '/data/out/' + ix + '.out',
   
   args = lambda ix: [ ],
   stdin = lambda ifile: ifile,
