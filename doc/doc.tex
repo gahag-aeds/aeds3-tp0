@@ -109,11 +109,11 @@ Três operações são relevantes para análise temporal:
   \item \uline{Criação}: A criação da matriz demanda dois passos combinados.
         \begin{itemize}
           \item É necessário computar cada elemento da matriz de dimensão $n \times n$.\\
-                Portanto, este passo possui complexidade: $\Theta(n^2)$.
+                Portanto, este passo possui complexidade: $\mathcal{O}(n^2)$.
           \item Para cada elemento, é necessário calcular a tripla correspondente. \\
-                Tal operação é linear no tamanho do vetor. Complexidade: $\Theta(n)$.
+                Tal operação é linear no tamanho do vetor. Complexidade: $\mathcal{O}(n)$.
         \end{itemize}
-        A combinação desses dois passos resulta em $\Theta(n^2) \cdot \Theta(n) = \Theta(n^3)$.
+        A combinação desses dois passos resulta em $\mathcal{O}(n^2) \cdot \mathcal{O}(n) = \mathcal{O}(n^3)$.
   
   \item \uline{Consulta}: Para consultar a tripla correspondente a um intervalo $[i, j]$, basta acessar diretamente o elemento na posição $i, j$ da matriz. Portanto, a complexidade é $\Theta(1)$.
   
