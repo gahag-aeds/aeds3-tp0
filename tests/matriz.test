@@ -1,0 +1,65 @@
+Running tests for /gahag/programming/langs/c/aeds/3/tp0/matriz
+
+Test #0
+Executing /gahag/programming/langs/c/aeds/3/tp0/matriz: 0
+User time: 0.000s
+System time: 0.001s
+Output matched!
+Passed!
+
+Test #1
+Executing /gahag/programming/langs/c/aeds/3/tp0/matriz: 0
+User time: 0.007s                                                                                                                
+System time: 0.000s                                                                                                              
+Output matched!                                                                                                                  
+Passed!                                                                                                                          
+                                                                                                                                 
+Test #2                                                                                                                          
+Executing /gahag/programming/langs/c/aeds/3/tp0/matriz: 0                                                                        
+User time: 0.013s                                                                                                                
+System time: 0.003s                                                                                                              
+Output matched!                                                                                                                  
+Passed!                                                                                                                          
+                                                                                                                                 
+Test #3                                                                                                                          
+Executing /gahag/programming/langs/c/aeds/3/tp0/matriz: 0                                                                        
+User time: 3.770s                                                                                                                
+System time: 0.003s                                                                                                              
+Output matched!                                                                                                                  
+Passed!                                                                                                                          
+                                                                                                                                 
+Test #4                                                                                                                          
+Executing /gahag/programming/langs/c/aeds/3/tp0/matriz: 0                                                                        
+User time: 6.057s                                                                                                                
+System time: 0.003s                                                                                                              
+Output matched!
+Passed!
+
+Test #5
+Executing /gahag/programming/langs/c/aeds/3/tp0/matriz: 0
+User time: 4.562s
+System time: 0.013s
+Output matched!
+Passed!
+
+Test #6
+Executing /gahag/programming/langs/c/aeds/3/tp0/matriz: 0
+User time: 258.056s
+System time: 0.350s
+Output matched!
+Passed!
+
+Test #7
+Executing /gahag/programming/langs/c/aeds/3/tp0/matriz: 0
+User time: 33.045s
+System time: 0.073s
+Output matched!
+Passed!
+
+Test #8
+Executing /gahag/programming/langs/c/aeds/3/tp0/matriz: 0
+User time: 68.620s
+System time: 0.160s
+Output matched!
+Passed!
+ 
