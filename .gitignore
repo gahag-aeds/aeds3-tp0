@@ -3,3 +3,4 @@ matriz
 arvore
 *.log
 *.aux
+tests/gen/gen

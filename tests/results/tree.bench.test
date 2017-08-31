@@ -1,0 +1,36 @@
+Running tests for /gahag/programming/langs/c/aeds/3/tp0/arvore
+
+Test #10
+Executing /gahag/programming/langs/c/aeds/3/tp0/arvore: 0
+User time: 0.001s
+System time: 0.000s
+Output matched!
+Passed!
+
+Test #100
+Executing /gahag/programming/langs/c/aeds/3/tp0/arvore: 0
+User time: 0.000s
+System time: 0.002s
+Output matched!
+Passed!
+
+Test #1000
+Executing /gahag/programming/langs/c/aeds/3/tp0/arvore: 0
+User time: 0.011s
+System time: 0.000s
+Output matched!
+Passed!
+
+Test #10000
+Executing /gahag/programming/langs/c/aeds/3/tp0/arvore: 0
+User time: 0.585s
+System time: 0.000s
+Output matched!
+Passed!
+
+Test #100000
+Executing /gahag/programming/langs/c/aeds/3/tp0/arvore: 0
+User time: 58.948s
+System time: 0.013s
+Output matched!
+Passed!
