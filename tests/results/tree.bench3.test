@@ -1,0 +1,110 @@
+Running tests for /gahag/programming/langs/c/aeds/3/tp0/arvore
+
+Test #16
+Executing /gahag/programming/langs/c/aeds/3/tp0/arvore: 0
+User time: 0.002s
+System time: 0.000s
+Output differed!
+Failed!
+
+Test #32                                                                                   
+Executing /gahag/programming/langs/c/aeds/3/tp0/arvore: 0                                  
+User time: 0.000s                                                                          
+System time: 0.002s                                                                        
+Output differed!                                                                           
+Failed!
+
+Test #64
+Executing /gahag/programming/langs/c/aeds/3/tp0/arvore: 0
+User time: 0.002s
+System time: 0.000s
+Output differed!
+Failed!
+
+Test #128
+Executing /gahag/programming/langs/c/aeds/3/tp0/arvore: 0
+User time: 0.002s
+System time: 0.000s
+Output differed!
+Failed!
+
+Test #256
+Executing /gahag/programming/langs/c/aeds/3/tp0/arvore: 0
+User time: 0.002s
+System time: 0.000s
+Output differed!
+Failed!
+
+Test #512
+Executing /gahag/programming/langs/c/aeds/3/tp0/arvore: 0
+User time: 0.002s
+System time: 0.002s
+Output differed!
+Failed!
+
+Test #1024
+Executing /gahag/programming/langs/c/aeds/3/tp0/arvore: 0
+User time: 0.009s
+System time: 0.000s
+Output differed!
+Failed!
+
+Test #2048
+Executing /gahag/programming/langs/c/aeds/3/tp0/arvore: 0
+User time: 0.027s
+System time: 0.000s
+Output differed!
+Failed!
+
+Test #4096
+Executing /gahag/programming/langs/c/aeds/3/tp0/arvore: 0
+User time: 0.097s
+System time: 0.003s
+Output differed!
+Failed!
+
+Test #8192
+Executing /gahag/programming/langs/c/aeds/3/tp0/arvore: 0
+User time: 0.385s
+System time: 0.000s
+Output differed!
+Failed!
+
+Test #16384
+Executing /gahag/programming/langs/c/aeds/3/tp0/arvore: 0
+User time: 1.530s
+System time: 0.007s
+Output differed!
+Failed!
+
+Test #32768
+Executing /gahag/programming/langs/c/aeds/3/tp0/arvore: 0
+User time: 6.110s
+System time: 0.027s
+Output differed!
+Failed!
+
+Test #65536
+Executing /gahag/programming/langs/c/aeds/3/tp0/arvore: 0
+User time: 24.887s
+System time: 0.057s
+Output differed!
+Failed!
+
+Test #131072
+Executing /gahag/programming/langs/c/aeds/3/tp0/arvore: 0
+User time: 100.272s
+System time: 0.140s
+Output differed!
+Failed!
+
+Test #262144
+Executing /gahag/programming/langs/c/aeds/3/tp0/arvore: 0
+User time: 399.652s
+System time: 0.013s
+Output differed!
+Failed!
+
+Summary:
+0 passed
+15 failed
