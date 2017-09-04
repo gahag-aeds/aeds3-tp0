@@ -3,4 +3,5 @@ matriz
 arvore
 *.log
 *.aux
+doc/*.out
 tests/gen/gen

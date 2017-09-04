@@ -21,6 +21,7 @@
 
 \DeclareFloatingEnvironment[fileext=lod]{diagram}
 \captionsetup[diagram]{labelformat=empty}
+\captionsetup[figure]{labelformat=empty}
 
 
 \begin{document}
@@ -76,12 +77,22 @@ Para cada alteração no vetor, a matriz deve ser reconstruida.
 \subsection{Árvore de Segmentos}
 Uma árvore de segmentos foi escolhida como forma elaborada de se estruturar os dados. Cada nó na arvóre representa um intervalo. As folhas representam todos intervalos de largura $1$, já os nós internos representam o intervalo resultante da união dos intervalos de seus descendentes. A raiz representa o intervalo correspondente a todo o vetor.
 \begin{diagram}[h]
-  \Tree[.$T_{1,5}$ [.$T_{1,2}$ [.$T_{1,1}$ ]
-                               [.$T_{2,2}$ ] ]
-                   [.$T_{3,5}$ [.$T_{3,3}$ ]
-                               [.$T_{4,5}$ [.$T_{4,4}$ ] 
-                                           [.$T_{5,5}$ ] ] ] ]
-\caption{Árvore de segmentos para um vetor de tamanho $5$.}
+  \begin{minipage}{0.5\linewidth}
+    \Tree[.$T_{1,5}$ [.$T_{1,2}$ [.$T_{1,1}$ ]
+                                 [.$T_{2,2}$ ] ]
+                     [.$T_{3,5}$ [.$T_{3,3}$ ]
+                                 [.$T_{4,5}$ [.$T_{4,4}$ ] 
+                                             [.$T_{5,5}$ ] ] ] ]
+    \caption{Árvore para um vetor de tamanho $5$.}
+  \end{minipage}
+  \begin{minipage}{0.5\linewidth}
+    \Tree[.$T_{1,5}$ [.$T_{1,2}$ [.$T_{1,1}$ [.$\varnothing$ ] [.$\varnothing$ ] ]
+                                 [.$T_{2,2}$ [.$\varnothing$ ] [.$\varnothing$ ] ] ]
+                     [.$T_{3,5}$ [.$T_{3,3}$ [.$\varnothing$ ] [.$\varnothing$ ] ]
+                                 [.$T_{4,5}$ [.$T_{4,4}$ ] 
+                                             [.$T_{5,5}$ ] ] ] ]
+    \caption{Árvore completa para um vetor de tamanho $5$.}
+  \end{minipage}
 \end{diagram}\\
 Para se obter a tripla de um certo intervalo $i$, é necessário percorrer a árvore a partir da raiz.
 Para um nó que reprenta um intervalo $j$, há as seguintes possibilidades:
@@ -135,14 +146,6 @@ que pode ser simplificada:
   4n - 1
 \end{gather*}
 A complexidade espacial da árvore é portanto $\mathcal{O}(n)$.
-\begin{diagram}[h]
-  \Tree[.$T_{1,5}$ [.$T_{1,2}$ [.$T_{1,1}$ [.$\varnothing$ ] [.$\varnothing$ ] ]
-                               [.$T_{2,2}$ [.$\varnothing$ ] [.$\varnothing$ ] ] ]
-                   [.$T_{3,5}$ [.$T_{3,3}$ [.$\varnothing$ ] [.$\varnothing$ ] ]
-                               [.$T_{4,5}$ [.$T_{4,4}$ ] 
-                                           [.$T_{5,5}$ ] ] ] ]
-\caption{Árvore de segmentos completa para um vetor de tamanho $5$.}
-\end{diagram}
 
 \subsubsection{Temporal}
 Três operações são relevantes para análise temporal:
@@ -157,7 +160,15 @@ Três operações são relevantes para análise temporal:
 
 
 \section{Análise Experimental}
-
+A análise experimental da implementação é mostrada pela figura 1. Para realizar os experimentos, foi feito um gerador de entradas. Para um valor $n$, é gerada uma entrada contendo um vetor de tamanho $n$, e $n / 2$ operações de busca e atualização intercaladas. O intervalo em cada operação é aleatório, mas a largura do intervalo é fixa em $n / 3$. Para medir o tempo de execução do código, foi utilizada a informação de uso de recursos fornecida pelo sistema operacional linux. Os valores $n$ foram escolhidos estrategicamente para cada teste. A razão inicial é verificar, de forma geral, o comportamento dos algoritmos para casos genéricos.
+\vspace{-10pt}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.45\linewidth]{images/matrix.png}
+  \includegraphics[width=0.45\linewidth]{images/tree.png}
+  \caption{Figura 1: Teste experimental}
+\end{figure}\\
+Nos gráficos da figura 1 é notável o ganho em eficiência da árvore de segmentos sobre a matriz.
 
 \section{Conclusão}
 O objetivo do trabalho foi atingido ao demonstrar as diferenças na eficiência das soluções propostas, tanto teoricamente quanto experimentalmente. Tornou-se evidente o grande ganho obtido na performance ao se utilizar uma estruturação de dados adequada.
