@@ -14,12 +14,12 @@ Tree-CompilationUnits = $(Lib-CompilationUnits) $(SrcDir)/main-tree.c
 Build    = gcc
 Standard = c99 -pedantic
 Libs     = -lm
-Warnings = -Wall -Wextra #-Werror
+Warnings = -Wall -Wextra -Werror
 Optimize = -O2 -flto
 
 BuildFlags  = $(Warnings)       \
               -std=$(Standard)  \
-							$(Libs)						\
+              $(Libs)           \
               $(Optimize)       \
               -I $(SrcDir)      \
               -o $(1)
